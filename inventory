@@ -1,0 +1,13 @@
+[pbench-controller]
+
+[masters]
+example.com port=8443 cert=/etc/origin/master/admin.crt key=/etc/origin/master/admin.key
+    
+[nodes]
+
+[etcd]
+
+[lb]
+
+[pbench-controller:vars]
+register_all_nodes=False
