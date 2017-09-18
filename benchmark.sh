@@ -1,12 +1,18 @@
-#!/bin/sh
-# docker tag ravielluri/image:controller pbench-controller:latest
+#!/bin/bash
 
-files_dir=/root/dockerfiles/openshift-templates/pbench-agent
-docker run -p 9090:9090 -t -d --net=host --privileged \
-    -v $files_dir/results:/var/lib/pbench-agent \
-    -v $files_dir/hosts-openshift.inv:/root/inventory \
-    -v $files_dir/vars:/root/vars \
-    -v $files_dir/keys:/root/.ssh \
-    -v $files_dir/benchmark.sh:/root/benchmark.sh \
-    -v $files_dir/stress-mb.yaml:/root/svt/openshift_scalability/config/stress-mb.yaml \
-    -v $files_dir/stress-pod.json:/root/svt/openshift_scalability/content/quickstarts/stress/stress-pod.json pbench-controller
+# wrap cluster loader commands with pbench
+cd /root/svt/openshift_scalability
+
+# nodeVertical
+if [[ "${benchmark_type}" == "nodeVertical" || "{{benchmark_type}" == "nodevertical" ]]; then
+	pbench-user-benchmark -C nodeVert -- ./nodeVertical.sh nodeVert
+        #./cluster-loader.py -avf config/nodeVertical.yaml
+# http
+elif [[ "${benchmark_type}" == "http" ]]; then
+	# pbench-user-benchmark -C http -- ./http_test.sh
+        ./cluster-loader.py -vaf config/stress-mb.yaml
+#master-Vertical
+elif [[ "${benchmark_type}" == "masterVertical" ]] || [[ "{benchmark_type}" == "mastervertical" ]]; then
+	 pbench-user-benchmark -C masterVert -- ./masterVertical.sh
+	./masterVertical.sh
+fi
