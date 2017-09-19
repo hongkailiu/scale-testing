@@ -25,7 +25,7 @@ spec:
           - name: ssh-keys
             mountPath: /root/.ssh
           - name: admin-keys
-            mountPath: /var/run/pbench/keys
+            mountPath: /etc/origin/master
           - name: certs
             mountPath: /etc/pki
         ports:

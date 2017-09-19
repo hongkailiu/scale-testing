@@ -13,6 +13,6 @@ elif [[ "${benchmark_type}" == "http" ]]; then
         ./cluster-loader.py -vaf config/stress-mb.yaml
 #master-Vertical
 elif [[ "${benchmark_type}" == "masterVertical" ]] || [[ "{benchmark_type}" == "mastervertical" ]]; then
-	 pbench-user-benchmark -C masterVert -- ./masterVertical.sh
+	# pbench-user-benchmark -C masterVert -- ./masterVertical.sh
 	./masterVertical.sh
 fi
