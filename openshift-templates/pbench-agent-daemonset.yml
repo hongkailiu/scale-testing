@@ -14,7 +14,7 @@ spec:
       containers:
       - image: pbench-agent
         name: pbench-agent
-        imagePullPolicy: "IfNotPresent"
+        imagePullPolicy: "Never"
         securityContext:
           privileged: true
         volumeMounts:

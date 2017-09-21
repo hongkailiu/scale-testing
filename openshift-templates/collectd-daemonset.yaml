@@ -14,21 +14,36 @@ spec:
       containers:
       - image: collectd
         name: collectd
-        imagePullPolicy: "IfNotPresent"
+        imagePullPolicy: "Never"
+        env:
+          - name: graphite_host
+            valueFrom:
+              configMapKeyRef:
+                name: collectd-config
+                key: host
+          - name: graphite_prefix
+            valueFrom:
+              configMapKeyRef:
+                name: collectd-config
+                key: prefix
+          - name: collectd_interval
+            valueFrom:
+              configMapKeyRef:
+                name: collectd-config
+                key: interval
         securityContext:
           privileged: true
         volumeMounts:
           - name: proc-mount
-            mountPath: /proc_host
-        ports:
-          - containerPort: 2222
+            mountPath: /mnt/proc
+          - name: docker
+            mountPath: /var/run/docker.sock
       volumes:
         - name: proc-mount
           hostPath:
             path: /proc
+        - name: docker
+          hostPath:
+            path: /var/run/docker.sock
       nodeSelector: 
         type: collectd
-      volumes:
-        - name: config-volume
-          configMap:
-            name: collectd-config-map
