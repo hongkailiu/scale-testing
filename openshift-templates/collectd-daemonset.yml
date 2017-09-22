@@ -36,14 +36,9 @@ spec:
         volumeMounts:
           - name: proc-mount
             mountPath: /mnt/proc
-          - name: docker
-            mountPath: /var/run/docker.sock
       volumes:
         - name: proc-mount
           hostPath:
             path: /proc
-        - name: docker
-          hostPath:
-            path: /var/run/docker.sock
       nodeSelector: 
-        type: collectd
+        type: pbench

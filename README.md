@@ -1,8 +1,9 @@
 # scale-testing
+Setting up containerized pbench, collectd and running benchmarks
 
 ### Clone the repo
 ```
-$ git clone https://github.com/chaitanyaenr/scale-testing.git /root
+$ git clone https://github.com/chaitanyaenr/scale-testing.git /root/scale-testing
 ```
 
 ### Label the nodes with a type=pbench label
@@ -20,6 +21,17 @@ $ oc adm policy add-scc-to-user privileged -z useroot
 ```
 $ oc create -f /root/scale-testing/openshift-templates/pbench-agent-daemonset.yml
 $ oc patch daemonset pbench-agent --patch \ '{"spec":{"template":{"spec":{"serviceAccountName": "useroot"}}}}'
+```
+
+### create a configmap to feed credentials to the collectd pod
+```
+$ oc create -f /root/scale-testing/openshift-templates/collectd-config.yml
+```
+
+### create collectd pods and patch it
+```
+$ oc create -f /root/scale-testing/openshift-templates/collectd-daemonset.yml
+$ oc patch daemonset collectd --patch \ '{"spec":{"template":{"spec":{"serviceAccountName": "useroot"}}}}'
 ```
    
 ## Prepare the jump host to run pbench-controller

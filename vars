@@ -1,6 +1,6 @@
 #clear_results=False
 KUBECONFIG=/root/.kube/config
-#available options = http, nodeVertical, masterVertical
+#available options = http, nodeVertical, masterVertical, test
 benchmark_type=http
 
 benchmark=/root/benchmark.sh
