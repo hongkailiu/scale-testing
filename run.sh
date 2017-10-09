@@ -6,6 +6,4 @@ docker run -t -d --name=controller --net=host --privileged \
     -v $files_dir/inventory:/root/inventory \
     -v $files_dir/vars:/root/vars \
     -v $files_dir/keys:/root/.ssh \
-    -v $files_dir/benchmark.sh:/root/benchmark.sh \
-    -v $files_dir/stress-mb.yaml:/root/svt/openshift_scalability/config/stress-mb.yaml \
-    -v $files_dir/stress-pod.json:/root/svt/openshift_scalability/content/quickstarts/stress/stress-pod.json pbench-controller
+    -v $files_dir/benchmark.sh:/root/benchmark.sh pbench-controller
